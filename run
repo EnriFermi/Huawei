@@ -1,0 +1,6 @@
+g++ -c -o grader.o -std=c++17 -O3 grader.cpp
+g++ -o solution.exe -std=c++17 -O3 solution.cpp grader.o
+./solution.exe > out.txt
+
+rm solution.exe
+rm grader.o

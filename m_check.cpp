@@ -3,6 +3,8 @@
 #include <vector>
 #include <cstring>
 #include <ctime>
+#include <time.h>
+
 struct VertexInfo
 {
     int weight;
@@ -29,17 +31,17 @@ public:
         // std::cout << W_arr[0] << std::endl;
         L_P_arr = new int *[L]; // инициализация массива массивов P вершин на каждом уровне
         for (int i = 0; i < L; i++)
-            L_P_arr[i] = new int[N];
-        for (int i = 0; i < L; i++)
-            for (int j = 0; j < N; j++)
-                L_P_arr[i][j] = 0;
+            L_P_arr[i] = new int[N]{0};
+        // for (int i = 0; i < L; i++)
+        //     for (int j = 0; j < N; j++)
+        //         L_P_arr[i][j] = 0;
         // memset(L_P_arr[i], 0, N * sizeof(int));
         L_S_arr = new int *[L]; // инициализация массива массивов S вершин на каждом уровне
         for (int i = 0; i < L; i++)
-            L_S_arr[i] = new int[N];
-        for (int i = 0; i < L; i++)
-            for (int j = 0; j < N; j++)
-                L_S_arr[i][j] = 0;
+            L_S_arr[i] = new int[N]{0};
+        // for (int i = 0; i < L; i++)
+        //     for (int j = 0; j < N; j++)
+        //         L_S_arr[i][j] = 0;
         // memset(L_S_arr[i], 0, N * sizeof(int));
         for (int i = 0; i < N; i++) // могут вылезти ошибки ввиду архитектуры, надеемся что праймари всегда существует а секондари при отсутствии имеет уровень -1
         {
@@ -86,15 +88,15 @@ public:
             std::cout << std::endl;
         }
     }
-    bool is_good(int **arr)
-    {
-        int tmp_arr[2*N];
-        for (int i = 0;i<N;i++){
-            if (arr[0][i] > 0){
-                
-            }
-        }
-    }
+    // bool is_good(int **arr)
+    // {
+    //     int tmp_arr[2*N];
+    //     for (int i = 0;i<N;i++){
+    //         if (arr[0][i] > 0){
+
+    //         }
+    //     }
+    // }
 };
 
 int main()
@@ -125,10 +127,15 @@ int main()
                 e = -1;
         }
     }
+    // unsigned int start_time = clock();
     unsigned int start_time = clock();
-    m_check a1 = m_check(N, M, L, convertedInfos);
-    a1.get_info();
+    // for (int i=0;i<100000;i++){
+        m_check a1 = m_check(N, M, L, convertedInfos);
+    // }
     unsigned int end_time = clock();
-    std::cout << end_time - start_time << std::endl;
+    // m_check a1 = m_check(N, M, L, convertedInfos);
+    // unsigned int end_time = clock();
+    a1.get_info();
+    std::cout << 1000.0 * (end_time - start_time)/CLOCKS_PER_SEC << std::endl;
     return 0;
 }

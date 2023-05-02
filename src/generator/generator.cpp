@@ -8,7 +8,6 @@
 #include <iostream>
 
 // константа задающее кол-во искомых цепочек
-#define 
 // предполагается что в базовом классе присутствуют:
 // M - максимальное значение в группе
 // int *W_arr - массив весов, отсортированных от минимума к максимуму
@@ -21,11 +20,12 @@
 int M = 13;
 int W_arr[10] = {1,3,4,5,7,8,9,11,13,13};
 long Summall_p = 74;
-
-
-class Generator{
+// Функции названия писать нельзя
+class generator{
 public:
-    void generate_wurst(){
+    generator(){};
+    ~generator(){};
+    void generate(){
         long t = Summall_p/M; // 5
         long tempsum = 0;
         for(int i = 0; i < t; i++)
@@ -36,6 +36,7 @@ public:
         do{
                
         }while
-    }
+    };
+
 };
 

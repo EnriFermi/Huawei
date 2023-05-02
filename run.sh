@@ -1,3 +1,4 @@
+#Deprecated
 EXEC_O_PATH="exec/o"
 EXEC_PATH="exec"
 g++ -c -o $EXEC_O_PATH/grader.o -std=c++17 -O3 src/grader.cpp

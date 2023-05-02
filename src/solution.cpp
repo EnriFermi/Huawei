@@ -1,29 +1,25 @@
 #include <cassert>
 #include <vector>
-
-struct VertexInfo {
-    int weight;
-    int lvlsCount;
-    int primaryLvl, secondaryLvl = -1;
-    std::vector<int> primaryEdges, secondaryEdges = {};
-};
-
+#include <algorithm>
+#include "m_check/m_check.cpp"
+#include "edge_check/edge_check.cpp"
+#include "generator/generator.cpp"
 bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
 
-std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo> infos) {
-  /* coin is counted only once */
-  Delete(/*lvl=*/1, /*v=*/0, /*u=*/4);
-  Delete(/*lvl=*/1, /*v=*/0, /*u=*/4);
+std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo>&  infos) {
+    //Preprocessing
+    //TODO sort
+    
+    char * index_c;
+    char * weight_c;
+    //Checkers initialising 
+    m_check m_checker(N, M, L, infos, index_c, weight_c);
+    edge_check edge_checker(N, M, L, infos);
 
-  /* incorrect deletes */
-  assert(Delete(/*lvl=*/-1, /*v=*/-1, /*u=*/-1));
-  assert(Delete(/*lvl=*/2, /*v=*/0, /*u=*/1));
 
-  /* correct deletes on stable edges */
-  assert(Delete(/*lvl=*/1, /*v=*/0, /*u=*/0));
-  assert(Delete(/*lvl=*/0, /*v=*/1, /*u=*/2));
-  assert(!Delete(/*lvl=*/0, /*v=*/0, /*u=*/1));
+    //Generation
+    //TODO change sort output(maybe postprocessing)
+    generator().generate();
 
-  Delete(/*lvl=*/2, /*v=*/2, /*u=*/4);
-  return {{0, 0, 1, 1}, {2, 2}, {3}};
+    return;
 }

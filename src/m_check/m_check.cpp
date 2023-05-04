@@ -8,15 +8,15 @@
 #include <ctime>
 #include <time.h>
 
-struct VertexInfo
-{
-    int weight;
-    int lvlsCount;
-    int primaryLvl, secondaryLvl = -1;
-    std::vector<int> primaryEdges, secondaryEdges = {};
-};
+// struct VertexInfo
+// {
+//     int weight;
+//     int lvlsCount;
+//     int primaryLvl, secondaryLvl = -1;
+//     std::vector<int> primaryEdges, secondaryEdges = {};
+// };
 
-std::vector<VertexInfo> infos;
+// std::vector<VertexInfo> infos;
 
 class m_check
 {
@@ -235,12 +235,12 @@ public:
 //     m_check a1 = m_check(N, M, L, convertedInfos, index_c, weight_c);
 //     a1.get_info();
 //     unsigned int start_time = clock();
-//     for (int i = 0; i < 2000000; i++)
+//     for (int i = 0; i < 10000; i++)
 //     {
 //         // a1.is_good(num_mas, 0);
 //         // m_check a1 = m_check(N, M, L, convertedInfos, index_c, weight_c);
 //         // std::cout << a1.is_good_fast(num_mas, 4) << std::endl;
-//         // a1.is_good_fast(num_mas, 0);
+//         a1.is_good_fast(num_mas, 0);
 //     }
 //     unsigned int end_time = clock();
 //     std::cout << 1000.0 * (end_time - start_time) / CLOCKS_PER_SEC << std::endl;

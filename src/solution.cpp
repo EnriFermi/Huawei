@@ -2,6 +2,8 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <math.h>
+#include <time.h>
 // #include "m_check/m_check.cpp"
 // #include "edge_check/edge_check.cpp"
 // #include "generator/generator.cpp"
@@ -22,25 +24,46 @@ std::vector<VertexInfo> infos;
     // Preprocessing
     // TODO sort
 
-    for (int i = 0; i < N; i++)
-    {
-        std::cout << infos[i].weight << ' ';
-    }
-    std::cout << std::endl;
-    char index_c[N];
+    // for (int i = 0; i < infos.size(); i++)
+    // {
+    //     std::cout << infos[i].weight << ' ';
+    // }
+    // std::cout << std::endl;
+    unsigned int start_time = clock();
+    char weight_c[N];
+    unsigned char index_c[N];
     for (int i = 0; i < N; i++)
         index_c[i] = i;
-    bool comp(const VertexInfo &x, const VertexInfo &y){
-        return x.weight < y.weight;
-    };
+    // int n = infos.size();
+    // std::cout << infos.end() - infos.begin() << std::endl;
 
 
-    for (int i = 0; i < N; i++)
+    for (int i = 1; i <= N - 1; i++)
     {
-        std::cout << infos[i].weight << ' ';
+        VertexInfo tmp = infos[i];
+        int tmp1 = index_c[i];
+        int key = infos[i].weight;
+        int j = i - 1;
+        while (j >= 0 && infos[j].weight > key)
+        {
+            infos[j + 1] = infos[j];
+            index_c[j + 1] = index_c[j];
+            j = j - 1;
+        }
+        infos[j + 1] = tmp;
+        index_c[j + 1] = tmp1;
     }
 
-    char *weight_c;
+    for (int i = 0; i < N; i++)
+        weight_c[i] = infos[i].weight;
+    // unsigned int end_time = clock();
+    // std::cout << 1000.0 * (end_time - start_time) / CLOCKS_PER_SEC << std::endl;
+    // for (int i = 0; i < N; i++)
+    //     std::cout << (int)weight_c[i] << ' ';
+
+    // for (int i = 0; i < N; i++)
+    //     std::cout << (int)index_c[i] << ' ';
+
     // Checkers initialising
     //! m_check m_checker(N, M, L, infos, index_c, weight_c);
     //! edge_check edge_checker(N, M, L, infos);

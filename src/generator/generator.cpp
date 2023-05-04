@@ -162,7 +162,7 @@ public:
                             make_max(new_masi, num_of_dell, del_node);
                         }
                         else{
-                            //добавить удаление new_del_node
+                            //добавить удаление new_del_node + в конце концов добавить функцию для accuracy
                             delete[] new_masi[0];
                             delete[] new_masi[1];
                             delete[] new_masi;

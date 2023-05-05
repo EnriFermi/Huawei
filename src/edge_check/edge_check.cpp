@@ -35,10 +35,7 @@ class edge_check {
             
             // vector<int>::const_iterator j = (*i).primaryEdges.cbegin(), j_end = (*i).primaryEdges.cend();
             //? May be so
-
             while(j < i){
-
-                
                 if(vp[j]){ //TODO if =2 change behaviour
                     //!------------------------------------------------
                     int jN = j + N, iN = i + N, &top_i = top[i], &top_iN = top[iN];
@@ -141,26 +138,26 @@ class edge_check {
     inline pair<bool, char**>& is_good_fast(char ** arr, char K, char &size){
         char* last_p_grup = arr[0];
         char* last_s_grup = arr[1];
-        
         if ((last_p_grup[K] != 0) && (last_p_grup[K] == last_s_grup[K]))
         {
-            char **&rules = rule_list[K], a, b, **nodes = 0, size = 0;
+            char **&rules_K = rule_list[K], a, b, **nodes = 0, size = 0;
             bool is_good = true;
             int top_k = top[K], i = 0;
             a = last_p_grup[K];
             while (is_good && i < top_k) //For primary keys
             {
-                if(rules[i][1]!=-1){
-                    b = ((char *) arr)[rules[i][0]];
+                if(rules_K[i][1]!=-1){
+                    b = arr[rules_K[i][0]/N][rules_K[i][0]%N];
                     is_good = !a || !b ||  a == b;
                 } else {
                     if (!(size % S_STEP)){
                             nodes = (char **)realloc(nodes,(size + S_STEP));
                     }
-                    nodes[size] = (char*) malloc(3*sizeof(char));
-                    nodes[size][0] = rules[i][2];
-                    nodes[size][1] = i;
-                    nodes[size][2] = rules[i][0];
+                    char *& nodes_size = nodes[size];
+                    nodes_size= (char*) malloc(3*sizeof(char));
+                    nodes_size[0] = rules_K[i][2];
+                    nodes_size[1] = i;
+                    nodes_size[2] = rules_K[i][0];
                     size++;
                 }
                 i++;
@@ -169,20 +166,22 @@ class edge_check {
                 return *new pair<bool, char**>(false, 0);
             top_k = top[K+N], i = 0;
             a = last_s_grup[K];
+            char **&rules_KN = rule_list[K+N];
             while (is_good && i < top_k) //For secondray keys
             {
                 
-                if(rules[i][1]!=-1){
-                    b = ((char *) arr)[rules[i+N][0]];
+                if(rules_KN[i][1]!=-1){
+                    b = arr[rules_KN[i][0]/N][rules_KN[i][0]%N];
                     is_good = !a || !b ||  a == b;
                 } else {
                     if (!(size % S_STEP)){
                             nodes = (char **)realloc(nodes,(size + S_STEP));
                     }
-                    nodes[size] = (char*) malloc(3*sizeof(char));
-                    nodes[size][0] = rules[i+N][2];
-                    nodes[size][1] = i;
-                    nodes[size][2] = rules[i+N][0];
+                    char *& nodes_size = nodes[size];
+                    nodes_size= (char*) malloc(3*sizeof(char));
+                    nodes_size[0] = rules_KN[i+N][2];
+                    nodes_size[1] = i;
+                    nodes_size[2] = rules_KN[i+N][0];
                     size++;
                 }
                 i++;
@@ -196,23 +195,24 @@ class edge_check {
         }
         if (last_p_grup[K] != last_s_grup[K])
         {
-            char **&rules = rule_list[K], a, b, **nodes = 0, size = 0;
+            char **&rules_K = rule_list[K], a, b, **nodes = 0, size = 0;
             bool is_good = true;
             int top_k = top[K], i = 0;
             a = last_p_grup[K];
             while (is_good && i < top_k) //For primary keys
             {
-                if(rules[i][1]!=-1){
-                    b = ((char *) arr)[rules[i][0]];
+                if(rules_K[i][1]!=-1){
+                    b = arr[rules_K[i][0]/N][rules_K[i][0]%N];
                     is_good = !a || !b ||  a == b;
                 } else {
                     if (!(size % S_STEP)){
                             nodes = (char **)realloc(nodes,(size + S_STEP));
                     }
-                    nodes[size] = (char*) malloc(3*sizeof(char));
-                    nodes[size][0] = rules[i][2];
-                    nodes[size][1] = i;
-                    nodes[size][2] = rules[i][0];
+                    char *& nodes_size = nodes[size];
+                    nodes_size= (char*) malloc(3*sizeof(char));
+                    nodes_size[0] = rules_K[i][2];
+                    nodes_size[1] = i;
+                    nodes_size[2] = rules_K[i][0];
                     size++;
                 }
                 i++;
@@ -236,13 +236,67 @@ int main(){
            VertexInfo{/*weight=*/4, /*lvlsCount=*/1, /*primaryLvl=*/1, /*secondaryLvl=*/-1,/*primaryEdges=*/{0, 0, 0, 0, 3}, /*secondaryEdges=*/{}},
            VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,/*primaryEdges=*/{2, 0, 0, 3, 0}, /*secondaryEdges=*/{0, 0, 3, 0, 0}}};
     std::vector<VertexInfo> convertedInfos = infos;
-    edge_check(N, M, L, convertedInfos);
+    for (int v = 0; v < N; ++v)
+    {
+        for (int &e : convertedInfos[v].primaryEdges)
+        {
+            if (e >= 2)
+                e = -1;
+        }
+        for (int &e : convertedInfos[v].secondaryEdges)
+        {
+            if (e >= 2)
+                e = -1;
+        }
+    }
 
+#define a 2
+#define b 5
+    char mask[a][b] = {
+        /*p*/{1, 1, 0, 0, 1}, 
+        /*s*/{1, 1, 0, 0, 0}};
     
+    char ** mask_r = (char**) calloc(a, sizeof(char*));
+    mask_r[0] = (char*) calloc(b, sizeof(char));
+    mask_r[1] = (char*) calloc(b, sizeof(char));
+    for(int i=0; i<5 ;i++){
+        mask_r[0][i] = mask[0][i];
+        mask_r[1][i] = mask[1][i];
+    }
+    char size = 0;
+    cout << edge_check(N, M, L, convertedInfos).is_good_fast((char**) mask_r, 0, size).first << endl;;
+
+    //?Initialising speed test
     // unsigned int start_time = clock();
     // for (int i=0;i<2000;i++){
     //     edge_check(N, M, L, convertedInfos);
     // }
+    // unsigned int end_time = clock();
+    // std::cout << 1000.0 * (end_time - start_time)/CLOCKS_PER_SEC << std::endl;
+// //?-------------
+//     int N=20000;
+    
+//     char * a =(char *) malloc(N*N*sizeof(char));
+//     unsigned int start_time = clock();
+//     for(int i=0; i<N*N; i++){
+//         a[i] = 1;
+//     }
+//     unsigned int end_time = clock();
+//     std::cout << 1000.0 * (end_time - start_time)/CLOCKS_PER_SEC << std::endl;
+//     //?------------------
+    // int N=20000;
+    
+    // char ** a =(char **) malloc(N*sizeof(char*));
+    // for(int i=0; i<N; i++){
+    //     a[i] = (char*) malloc(N*sizeof(char));
+    // }
+    // unsigned int start_time = clock();
+    // for(int i=0; i<N; i++){
+    //     for(int j=0; j<N; j++){
+    //         a[i][j] = 1;
+    //     }
+    // }
+
     // unsigned int end_time = clock();
     // std::cout << 1000.0 * (end_time - start_time)/CLOCKS_PER_SEC << std::endl;
 }

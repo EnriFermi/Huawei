@@ -46,6 +46,7 @@ bool Delete(int lvl, int v, int u) {
 //Подключаем все файлы
 #include "src/edge_check/edge_check.cpp"
 #include "src/m_check/m_check.cpp"
+#include "src/generator/generator.cpp"
 #include "src/solution.cpp"
 #include "src/parser.cpp"
 

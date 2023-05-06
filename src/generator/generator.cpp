@@ -11,7 +11,7 @@
 #include <vector>
 
 //TODO сделать accuracy неконстантой
-#define accuracy 2
+
 #define zv 0.5
 // константа задающее возможность принебречь точностью на
 
@@ -43,7 +43,8 @@ public:
     char * W_arr; // массив весов
     short Summall_p; // сумма всех primary
     bool *sec_ed; // существует ли secondary
-    char unsttv;
+    char accuracy = 0;
+    // char unsttv;
     int W_now, W_next;
     std::vector<char***> st;
     
@@ -67,8 +68,8 @@ public:
     void count_weight(char ** masi, char w){
         int all_w = 0;
         for (char i = 0; i < k; i++){
-            if (masi[i][0] != 1){
-                if (masi[i][1] != 1) all_w += W_arr[i];
+            if (masi[0][i] != 1){
+                if (masi[1][i] != 1) all_w += W_arr[i];
                 all_w += W_arr[i];
             }
         }
@@ -84,7 +85,9 @@ public:
             char ** num_mas = new char * [2];
             num_mas[0] = new char[k]{0};
             num_mas[1] = new char[k]{0};
+            accuracy = k/t+1;
             megarecur(masi, num_mas, k-1, k-t, 1);
+            if (done_flag) return;
             if (st.size() != 0) {
                 if (bruh)
                     count_weight(masi, W_arr[now]);
@@ -95,6 +98,7 @@ public:
                 }
                 finito_la_comedia();
             }
+            
             delete[] num_mas[0];
             delete[] num_mas[1];
             delete[] num_mas;
@@ -133,35 +137,33 @@ public:
         done_flag = true;
         return;
     }
-    inline static double count_decision_value(int w_sum, int w_chgsum, int u_num, int c_num, double variance, int u_mnum);
+    inline static double count_decision_value(int w_sum, int w_chgsum, int u_num, int c_num, double variance);
     void make_max(char ** a, char num_of_del, char ** del_node){
         // добавить delete проверку
         if (num_of_del == 0) hurray(a);
         else {
-            char *** np = new char**[3];
-            np[0] = a;
+            char *** np = new char**[3];//нужно больше звездочек
+            np[0] = a;// колбаска
             np[1] = new char*[1];
             np[1][0] = new char[1];
             np[1][0] = &num_of_del; // np[1][0][0] = num_of_del;
-            np[2] = del_node;
+            np[2] = del_node;// удаляемые ветки
             st.push_back(np);
         }
     }
     void finito_la_comedia(){
-        
-        char imax = 0;
-        double maxo = -1, nw;
+        char imax = -1;
+        double maxo = count_decision_value(W_next,0,0,coinlost,zv), nw;
         for (char i = 0; i < st.size(); i++){
-            if (maxo < (nw = count_decision_value(W_now, W_next, st[i][1][0][0], coinlost, zv, unsttv))){
+            if (maxo < (nw = count_decision_value(W_now, W_next, st[i][1][0][0], coinlost, zv))){
                 maxo = nw;
                 imax = i;
             }
         }
-        if (maxo > 0.5)
-            if (good_del(st[imax][1][0][0], st[imax][2])){
-                hurray(st[imax][0]);
-            }
-        
+        if (imax != -1){ 
+            if (good_del(st[imax][1][0][0], st[imax][2]))
+               hurray(st[imax][0]);
+        }
         for (char i = 0; i < st.size(); i++){
             //добавить удаление строки массива
             delete[] st[i][0][0];
@@ -227,9 +229,8 @@ public:
                         
                         if (done_flag) return;
                         
-                        if (j + accuracy >= k && num_of_dell == 0){
+                        if (j + accuracy >= k && num_of_dell == 0)
                             make_max(new_masi, num_of_dell, del_node);
-                        }
                         else{
                             for (char i = 0; i < num_of_dell+del_add;i++)
                                 delete[] new_del_node[i];

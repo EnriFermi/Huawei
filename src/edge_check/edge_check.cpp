@@ -142,14 +142,14 @@ public:
             }
             i++;
         }
-        for (int i = 0; i < 2 * N; i++)
-        {
-            for (int j = 0; j < top[i]; j += S_PARAM)
-            {
-                cout << i << " " << (int)rule_list[i][j] << " " << (int)rule_list[i][j + 2] << " " << (int)rule_list[i][j + 3] << endl;
-            }
-        }
-        cout << u_mnum << endl;
+        // for (int i = 0; i < 2 * N; i++)
+        // {
+        //     for (int j = 0; j < top[i]; j += S_PARAM)
+        //     {
+        //         cout << i << " " << (int)rule_list[i][j] << " " << (int)rule_list[i][j + 2] << " " << (int)rule_list[i][j + 3] << endl;
+        //     }
+        // }
+        // cout << u_mnum << endl;
     };
     inline pair<bool, char **> &is_good_fast(char **arr, char K, char &size)
     {

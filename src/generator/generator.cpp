@@ -275,14 +275,12 @@ public:
         return ans;
     }
 
-    generator(char * warr, char nk, char m, short sum, bool *sec_e, m_check &y, edge_check &o){
+    generator(char * warr, char nk, char m, short sum, bool *sec_e, m_check &y, edge_check &o): ech(o), mch(y){
         // массив весов
         // длина массива весов
         // M
         // Сумма всех весов primary
         // массив существования secondary для primary
-        mch = y;
-        ech = o;
         sec_ed = sec_e;
         k = nk;
         W_arr = warr;
@@ -290,9 +288,6 @@ public:
         Summall_p = sum;
         done_flag = false;
         
-    }
-    generator(int t){
-        k = t;
     }
     ~generator(){
         if (done_flag){

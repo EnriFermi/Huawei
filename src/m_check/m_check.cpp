@@ -18,10 +18,10 @@ class m_check
     char *L_P_arr = NULL;
     char *L_S_arr = NULL;
     char *WEIGHT_C = NULL;
-    char *INDEX_C = NULL;
+    unsigned char *INDEX_C = NULL;
 
 public:
-    m_check(int n, int m, int l, std::vector<VertexInfo> &std_struct, char *index_c, char *weight_c) : N(n), M(m), L(l), WEIGHT_C(weight_c), INDEX_C(index_c)
+    m_check(int n, int m, int l, std::vector<VertexInfo> &std_struct,unsigned char *index_c, char *weight_c) : N(n), M(m), L(l), WEIGHT_C(weight_c), INDEX_C(index_c)
     {
         WEIGHT_C = weight_c;
         INDEX_C = index_c;

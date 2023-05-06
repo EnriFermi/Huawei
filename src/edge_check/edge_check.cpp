@@ -18,6 +18,7 @@ class edge_check {
     const int N;
     const int M;
     const int L;
+    int u_mnum;
     char ** rule_list;
     int * top;
     inline bool equal(char &a, char &b){
@@ -29,6 +30,7 @@ class edge_check {
         top = (int*) calloc(2*N, sizeof(int));
         rule_list = (char**) calloc(2*N, sizeof(char**));
         int i = 0, i_end = std_struct.size();
+        u_mnum = 0;
         // vector<VertexInfo>::const_iterator i = std_struct.cbegin(), i_end = std_struct.cend();
         while(i!= i_end){
             const vector<int> &vp = std_struct[i].primaryEdges;
@@ -41,6 +43,7 @@ class edge_check {
             while(j < i){
                 if(vp[j]!=0){ //TODO if =2 change behaviour
                     //!------------------------------------------------
+                    u_mnum += vp[j] == -1;
                     int jN = j + N, iN = i + N, &top_i = top[i], &top_iN = top[iN];
                     char *&rule_i = rule_list[i];
                     if(!(top_i%S_STEP)) {
@@ -82,7 +85,7 @@ class edge_check {
                     
                 }
                 if(!vs_empty && (vs[j]!=0)){ //TODO if =2 change behaviour
-                
+                    u_mnum += vs[j] == -1;
                     int jN = j + N, iN = i + N, &top_i = top[i], &top_iN = top[iN];
                     char * &rule_iN = rule_list[iN];
                     if(!(top_iN%S_STEP)) {
@@ -123,14 +126,12 @@ class edge_check {
             }
             i++;
         }
-        // for(int i=0; i<2*N; i++){
-        //     for(int j=0; j<top[i]; j+=S_PARAM){
-        //          cout << i <<" "<< (int) rule_list[i][j] <<  " " <<(int) rule_list[i][j+2] <<" " << (int) rule_list[i][j+3] << endl;
-        //     }
-        // }
-    };
-    inline bool is_good(char **arr, char K){
-        
+        for(int i=0; i<2*N; i++){
+            for(int j=0; j<top[i]; j+=S_PARAM){
+                 cout << i <<" "<< (int) rule_list[i][j] <<  " " <<(int) rule_list[i][j+2] <<" " << (int) rule_list[i][j+3] << endl;
+            }
+        }
+        cout << u_mnum << endl;
     };
     inline pair<bool, char**>& is_good_fast(char ** arr, char K, char &size){
         char* last_p_grup = arr[0];
@@ -224,7 +225,7 @@ class edge_check {
 #define alpha 0.1
 #define sigma 0.25
     inline ~edge_check(){};
-    inline static double count_decision_value(int w_sum, int w_chgsum, int u_num, int c_num, double variance, int u_mnum){
+    inline double count_decision_value(int w_sum, int w_chgsum, int u_num, int c_num, double variance){
         double lambda;
         if(!u_mnum && u_num)
             lambda = 1;
@@ -232,7 +233,8 @@ class edge_check {
             double m_res = 1 - ((double) (c_num+u_num))/((int) (sigma*u_mnum));
             lambda = alpha *(m_res)*abs(m_res) + 1;
         }
-        return (pow(variance, u_num)*w_sum + pow(1-variance, u_num)*w_chgsum)*lambda;
+        double v_n = pow(variance, u_num);
+        return (v_n*w_sum + (1-v_n)*w_chgsum)*lambda;
     }
 };
 int main(){
@@ -304,7 +306,6 @@ int main(){
     //         a[i][j] = 1;
     //     }
     // }
-
     // unsigned int end_time = clock();
     // std::cout << 1000.0 * (end_time - start_time)/CLOCKS_PER_SEC << std::endl;
 }

@@ -104,10 +104,10 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     //write answer
     char ** ans = g.get_ans();
     for (int i = 0; i < infos.size(); i++)
-        cout << ans[0][i] << " ";
+        cout << int(ans[0][i]) << " ";
     cout << "\n";
     for (int i = 0; i < infos.size(); i++)
-        cout << ans[1][i] << " ";
+        cout << int(ans[1][i]) << " ";
     cout << "\n\n\n";
     return;
 }

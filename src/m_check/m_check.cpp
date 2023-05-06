@@ -8,13 +8,6 @@
 #include <ctime>
 #include <time.h>
 
-// struct VertexInfo
-// {
-//     int weight;
-//     int lvlsCount;
-//     int primaryLvl, secondaryLvl = -1;
-//     std::vector<int> primaryEdges, secondaryEdges = {};
-// };
 
 // std::vector<VertexInfo> infos;
 

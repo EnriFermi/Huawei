@@ -23,9 +23,9 @@
 // k - кол-во номеров вершин
 // bool *sec_ed - массив где, если у вершины есть secondary edge = true в противном случае false
 
-bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
-std::pair<bool, char**>& is_good_fast(char ** arr, char K, char &size);
-bool is_good(char **arr, char K);
+
+
+
 
 void print_mas(char ** mas, int a, int b){
     for (int i = 0; i < a; i++)
@@ -36,6 +36,8 @@ void print_mas(char ** mas, int a, int b){
 class generator{
 //    generator(){}
 public:
+    m_check &mch;
+    edge_check &ech;
     char t; // кол-во нулей в маске
     char k; // n в начальной программе, хз захотелось юзать k
     char M; // M в начальной программе
@@ -137,7 +139,7 @@ public:
         done_flag = true;
         return;
     }
-    inline static double count_decision_value(int w_sum, int w_chgsum, int u_num, int c_num, double variance);
+    
     void make_max(char ** a, char num_of_del, char ** del_node){
         // добавить delete проверку
         if (num_of_del == 0) hurray(a);
@@ -153,9 +155,9 @@ public:
     }
     void finito_la_comedia(){
         char imax = -1;
-        double maxo = count_decision_value(W_next,0,0,coinlost,zv), nw;
+        double maxo = ech.count_decision_value(W_next,0,0,coinlost,zv), nw;
         for (char i = 0; i < st.size(); i++){
-            if (maxo < (nw = count_decision_value(W_now, W_next, st[i][1][0][0], coinlost, zv))){
+            if (maxo < (nw = ech.count_decision_value(W_now, W_next, st[i][1][0][0], coinlost, zv))){
                 maxo = nw;
                 imax = i;
             }
@@ -214,10 +216,10 @@ public:
                 new_masi[0][j] = z;
                 if (maska[1][j] == 0) masi[1][j] = z;
                 
-                if (is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
+                if (mch.is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
                     char del_add; // передается Мише по ссылке
                     // вызов Миши
-                    std::pair<bool, char**> bruh = is_good_fast(new_masi, j, del_add);
+                    std::pair<bool, char**> bruh = ech.is_good_fast(new_masi, j, del_add);
                     if (bruh.first){ // .first
                         
                         //вызов функции склейки для del_node
@@ -268,13 +270,26 @@ public:
             maska_requr_prime(k-1, 0, masi);
         } while (!done_flag);
     };
-    generator(char * warr, char nk, char m, int sum, bool *sec_e){
+
+    char ** get_ans(){
+        return ans;
+    }
+
+    generator(char * warr, char nk, char m, short sum, bool *sec_e, m_check &y, edge_check &o){
+        // массив весов
+        // длина массива весов
+        // M
+        // Сумма всех весов primary
+        // массив существования secondary для primary
+        mch = y;
+        ech = o;
         sec_ed = sec_e;
         k = nk;
         W_arr = warr;
         M = m;
         Summall_p = sum;
         done_flag = false;
+        
     }
     generator(int t){
         k = t;

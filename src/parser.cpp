@@ -21,24 +21,24 @@ struct parser
                     e = -1;
             }
         }
-        vector<vector<int>> result = func(N, M, L, convertedInfos);
+        /*vector<vector<int>> result = */func(N, M, L, convertedInfos);
 
-        cout << result.size() << endl;
-        for (auto group : result)
-        {
-            sort(group.begin(), group.end());
-            cout << group.size() << " ";
-            for (size_t i = 0; i < group.size(); ++i)
-            {
-                cout << group[i];
-                if (i + 1 != group.size())
-                {
-                    cout << " ";
-                }
-            }
-            cout << endl;
-        }
-        cout << p << endl;
+        // cout << result.size() << endl;
+        // for (auto group : result)
+        // {
+        //     sort(group.begin(), group.end());
+        //     cout << group.size() << " ";
+        //     for (size_t i = 0; i < group.size(); ++i)
+        //     {
+        //         cout << group[i];
+        //         if (i + 1 != group.size())
+        //         {
+        //             cout << " ";
+        //         }
+        //     }
+        //     cout << endl;
+        // }
+        // cout << p << endl;
     }
 
 public:
@@ -71,7 +71,7 @@ public:
                     }
                 infos.push_back(vertex);
             }
-            //do_something(infos, Solver);
+            do_something(infos, Solver);
             infos.clear();
         }
     }

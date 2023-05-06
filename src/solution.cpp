@@ -55,7 +55,7 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
 
     // int n = infos.size();
     // std::cout << infos.end() - infos.begin() << std::endl;
-
+    
     // сортировка вставками быстрее до 16
     if (N < 16)
     {
@@ -77,9 +77,13 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     }
     else
         quicksort(infos, 0, N - 1, index_c);
-
-    for (int i = 0; i < infos.size(); i++)
+    short summall = 0;
+    bool hassec[infos.size()];
+    for (int i = 0; i < infos.size(); i++){
         weight_c[i] = infos[i].weight;
+        summall+=weight_c[i];
+        hassec[i] = infos[i].lvlsCount != 1;
+    }
     // unsigned int end_time = clock();
     // std::cout << 1000.0 * (end_time - start_time) / CLOCKS_PER_SEC << std::endl;
     // for (int i = 0; i < infos.size(); i++)
@@ -89,13 +93,22 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     //     std::cout << (int)index_c[i] << ' ';
 
     // Checkers initialising
-    //! m_check m_checker(N, M, L, infos, index_c, weight_c);
-    //! edge_check edge_checker(N, M, L, infos);
+    m_check m_checker(N, M, L, infos, index_c, weight_c);
+    edge_check edge_checker(N, M, L, infos);
 
     // Generation
     // TODO change sort output(maybe postprocessing)
     //! generator().generate();
-
+    generator g(weight_c, infos.size(), M, summall,hassec,m_checker,edge_checker);
+    g.generate();
+    //write answer
+    char ** ans = g.get_ans();
+    for (int i = 0; i < infos.size(); i++)
+        cout << ans[0][i] << " ";
+    cout << "\n";
+    for (int i = 0; i < infos.size(); i++)
+        cout << ans[1][i] << " ";
+    cout << "\n\n\n";
     return;
 }
 // int main()

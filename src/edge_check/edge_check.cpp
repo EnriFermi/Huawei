@@ -151,7 +151,7 @@ public:
         // }
         // cout << u_mnum << endl;
     };
-    inline pair<bool, char **> &is_good_fast(char **arr, char K, char &size)
+    inline pair<bool, char **> * is_good_fast(char **arr, char K, char &size)
     {
         size = 0;
         char *last_p_grup = arr[0];
@@ -174,7 +174,7 @@ public:
                 {
                     if (!(size % S_STEP))
                     {
-                        nodes = (char **)realloc(nodes, (size + S_STEP));
+                        nodes = (char **)realloc(nodes, (size + S_STEP)*sizeof(char*));
                     }
                     char *&nodes_size = nodes[size];
                     nodes_size = (char *)malloc(S_NODE_PARAM * sizeof(char));
@@ -185,7 +185,7 @@ public:
                 }
             }
             if (!is_good)
-                return *new pair<bool, char **>(false, 0);
+                return new pair<bool, char **>(false, 0);
             top_k = top[K + N], i = 0;
             a = last_s_grup[K];
             char *&rules_KN = rule_list[K + N];
@@ -202,20 +202,28 @@ public:
                 {
                     if (!(size % S_STEP))
                     {
-                        nodes = (char **)realloc(nodes, (size + S_STEP));
+                        nodes = (char **)realloc(nodes, (size + S_STEP)*sizeof(char*));
                     }
                     char *&nodes_size = nodes[size];
                     nodes_size = (char *)malloc(S_NODE_PARAM * sizeof(char));
                     nodes_size[0] = rules_KN[(i++) + N];
                     nodes_size[1] = i++ / S_PARAM;
                     nodes_size[2] = rules_KN[(i++) + N];
+                    for (int p = 0; p < top[K+N]; p++)
+                        cout << int(rules_KN[p]) << " ";
+                    cout << "\n\n";
+                    // cout << int(nodes_size[0]) << " " << int(nodes_size[1]) << " " << int(nodes_size[2]) << "\n";
                     size++;
                 }
             }
-            if (is_good)
-                return *new pair<bool, char **>(true, nodes);
+            if (is_good){
+                for (int i = 0; i < size; i++){
+                        cout << int(nodes[i][0]) << " " << int(nodes[i][1]) << " " << int(nodes[i][2]) << "\n";
+                }
+                return new pair<bool, char **>(true, nodes);
+            }
             else
-                return *new pair<bool, char **>(false, 0);
+                return new pair<bool, char **>(false, 0);
         }
         if (last_p_grup[K] != last_s_grup[K])
         {
@@ -235,7 +243,7 @@ public:
                 {
                     if (!(size % S_STEP))
                     {
-                        nodes = (char **)realloc(nodes, (size + S_STEP));
+                        nodes = (char **)realloc(nodes, (size + S_STEP)*sizeof(char*));
                     }
                     char *&nodes_size = nodes[size];
                     nodes_size = (char *)malloc(S_NODE_PARAM * sizeof(char));
@@ -246,11 +254,11 @@ public:
                 }
             }
             if (is_good)
-                return *new pair<bool, char **>(true, nodes);
+                return new pair<bool, char **>(true, nodes);
             else
-                return *new pair<bool, char **>(false, 0);
+                return new pair<bool, char **>(false, 0);
         }
-        return *new pair<bool, char **>(true, 0);
+        return new pair<bool, char **>(true, 0);
     }
 #define alpha 0.1
 #define sigma 0.25

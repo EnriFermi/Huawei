@@ -83,7 +83,8 @@ public:
     void maska_requr_prime(char now, char used, char** masi, bool bruh = false){
 //        cout << "lol" << " " << int(used) << endl; 
         if (done_flag) return;
-        if (used == t){
+        if (t - used > now+1) return; // t - used: сколько осталось
+        if (t == used){
             // cout << "abobus";
             
             // cout << int(t) << int(used) << "\n";
@@ -95,10 +96,14 @@ public:
             // cout <<"\n\n";
 
             char ** num_mas = new char * [2];
-            num_mas[0] = new char[k]{0};
-            num_mas[1] = new char[k]{0};
+            num_mas[0] = new char[k];
+            num_mas[1] = new char[k];
+            for (int i = 0; i < k; i++){
+                num_mas[0][i] = 0;
+                num_mas[1][i] = 0;
+            }
             // this->accuracy = (k/10)+1;
-            accuracy = 0;
+            accuracy = -1;
             megarecur(masi, num_mas, k-1, k-t, 1);
             if (done_flag) return;
             if (st.size() != 0) {
@@ -115,11 +120,12 @@ public:
             delete[] num_mas[0];
             delete[] num_mas[1];
             delete[] num_mas;
-            if(done_flag) return;
+            return;
+
         }
         //cout << int(now);
-        if (t - used > now+1) return; // t - used: сколько осталось
-        if (now < 0) return;
+        
+        
         char ** ne_masi = create_mass_copy(masi);
         // 00
         if (sec_ed[now]){
@@ -199,14 +205,23 @@ public:
         char ** new_mas = new char *[st+howadd];// создание массива размера суммы двух
         if (st != 0){
             for(char l = 0;  l < st; l++){
+                new_mas[l] = new char [3];
                 std::copy(&in_what_add[l][0], &in_what_add[l][0] + 3, &new_mas[l][0]);
                 delete in_what_add[l];
             }
             delete in_what_add;
         }
+
+
+        for (int i = 0; i < howadd; i++){
+            cout << int(what_add[i][0]) << " " << int(what_add[i][1]) << " " << int(what_add[i][2]) << "\n";
+        }
+        cout <<"\n\n";
         for(char l = st; l < howadd+st; l++){
-            std::copy(&what_add[l][0], &what_add[l][0] + 3, &new_mas[l][0]);
-            delete what_add[l];
+            // cout << int(l) << "\n";
+            new_mas[l] = new char[3];
+            std::copy(&what_add[l-st][0], &what_add[l-st][0] + 3, &new_mas[l][0]);
+            delete[] what_add[l-st];
         }
         delete what_add;
         return new_mas;
@@ -223,48 +238,28 @@ public:
             }
             // std::cout << int(j);
             //вызов функции megarecur от всех номеров групп
+            char ** new_masi = create_mass_copy(masi);
             for (int z = 1; z <= supchik; z++){
                 if (z == supchik) super_supchik++;
-                char ** new_masi = create_mass_copy(masi);
+                
                 new_masi[0][j] = z;
-                if (maska[1][j] == 0){
+                if (maska[1][j] == 0)
                     new_masi[1][j] = z;
-                    if (mch.is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
-                        char del_add = 0; // передается Мише по ссылке
-                        // вызов Миши
-                        std::pair<bool, char**> bruh = ech.is_good_fast(new_masi, j, del_add);
-                        if (bruh.first){ // .first
-                            
-                            //вызов функции склейки для del_node
-                            if (del_add != 0){
-                                char ** new_del_node = attach_mas(num_of_dell, del_add, del_node, bruh.second);
-                                megarecur(maska, new_masi, j-1, gnum, super_supchik, new_del_node, num_of_dell + del_add);
-                                for (char i = 0; i < num_of_dell+del_add;i++)
-                                    delete[] new_del_node[i];
-                            }
-                            else megarecur(maska, new_masi, j-1, gnum, super_supchik, del_node, num_of_dell);
-                            if (done_flag) return;
-                            
-                            if (j + accuracy >= k && num_of_dell == 0){
-                                make_max(new_masi, num_of_dell, del_node);
-                                
-                            }
-                            
-                        }
-                        // delete &bruh;
-                    }
-                }
-                // std::cout << "excuse me bruh"; 
-                new_masi[1][j] = 0;
+                else new_masi[1][j] = 0;
                 if (mch.is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
                     char del_add = 0; // передается Мише по ссылке
                     // вызов Миши
-                    std::pair<bool, char**> bruh = ech.is_good_fast(new_masi, j, del_add);
-                    if (bruh.first){ // .first
+                    std::pair<bool, char**> * bruh = ech.is_good_fast(new_masi, j, del_add);
+                    cout <<"\n\n\n" << int(del_add) << "\n";
+                    for (int i = 0; i < del_add; i++){
+                        cout << int(bruh->second[i][0]) << " " << int(bruh->second[i][1]) << " " << int(bruh->second[i][2]) << "\n";
+                    }
+
+                    if (bruh->first){ // .first
                         
                         //вызов функции склейки для del_node
                         if (del_add != 0){
-                            char ** new_del_node = attach_mas(num_of_dell, del_add, del_node, bruh.second);
+                            char ** new_del_node = attach_mas(num_of_dell, del_add, del_node, bruh->second);
                             megarecur(maska, new_masi, j-1, gnum, super_supchik, new_del_node, num_of_dell + del_add);
                             for (char i = 0; i < num_of_dell+del_add;i++)
                                 delete[] new_del_node[i];
@@ -273,23 +268,50 @@ public:
                         if (done_flag) return;
                         
                         if (j + accuracy >= k && num_of_dell == 0){
-                            
                             make_max(new_masi, num_of_dell, del_node);
+                            
                         }
                         
                     }
-                } 
-                delete[] new_masi[0];
-                delete[] new_masi[1];
-                delete[] new_masi;
+                    delete bruh;
+                }
+                // std::cout << "excuse me bruh"; 
+                // new_masi[1][j] = 0;
+                // if (mch.is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
+                //     char del_add = 0; // передается Мише по ссылке
+                //     // вызов Миши
+                //     std::pair<bool, char**> * bruh = ech.is_good_fast(new_masi, j, del_add);
+                //     if (bruh->first){ // .first
+                        
+                //         //вызов функции склейки для del_node
+                //         if (del_add != 0){
+                //             char ** new_del_node = attach_mas(num_of_dell, del_add, del_node, bruh->second);
+                //             megarecur(maska, new_masi, j-1, gnum, super_supchik, new_del_node, num_of_dell + del_add);
+                //             for (char i = 0; i < num_of_dell+del_add;i++)
+                //                 delete[] new_del_node[i];
+                //         }
+                //         else megarecur(maska, new_masi, j-1, gnum, super_supchik, del_node, num_of_dell);
+                //         if (done_flag) return;
+                        
+                //         if (j + accuracy >= k && num_of_dell == 0){
+                            
+                //             make_max(new_masi, num_of_dell, del_node);
+                //         }
+                        
+                //     }
+                // } 
+                
             }
+            delete[] new_masi[0];
+            delete[] new_masi[1];
+            delete[] new_masi;
         } else {
             // for (int i = 0; i < k;i++)
-            //                          cout << int(maska[0][i]);
-            //                      cout << "\n";
-            //                     for (int i = 0; i < k;i++)
-            //                          cout << int(maska[1][i]);    
-            //                     cout <<"\n\n";
+                                //      cout << int(maska[0][i]);
+                                //  cout << "\n";
+                                // for (int i = 0; i < k;i++)
+                                //      cout << int(maska[1][i]);    
+                                // cout <<"\n\n";
             make_max(masi,num_of_dell, del_node);
         }
         
@@ -302,8 +324,14 @@ public:
            
             // cout << int(t) << "\n";
             char ** masi = new char * [2] ;
-            masi[0] = new char[k]{0};
-            masi[1] = new char[k]{0};
+            masi[0] = new char[k];
+            masi[1] = new char[k];
+            for (int i = 0; i < k; i++){
+                masi[0][i] = 0;
+                if (sec_ed[i])
+                    masi[1][i] = 0;
+                else masi[1][i] = 1;
+            }
             maska_requr_prime(k-1, 0, masi);
         } while (!done_flag);
     };

@@ -113,8 +113,6 @@ public:
         //cout << int(now);
         if (t - used > now+1) return; // t - used: сколько осталось
         if (now < 0) return;
-        
-        
         char ** ne_masi = create_mass_copy(masi);
         // 00
         if (sec_ed[now]){

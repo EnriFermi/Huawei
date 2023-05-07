@@ -103,11 +103,15 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     g.generate();
     //write answer
     char ** ans = g.get_ans();
-    for (int i = 0; i < infos.size(); i++)
-        cout << int(ans[0][i]) << " ";
+    for (int i = 0; i < infos.size(); i++){
+        cout << hassec[i];
+    }
     cout << "\n";
     for (int i = 0; i < infos.size(); i++)
-        cout << int(ans[1][i]) << " ";
+        cout << int(ans[0][index_c[i]]) << " ";
+    cout << "\n";
+    for (int i = 0; i < infos.size(); i++)
+        cout << int(ans[1][index_c[i]]) << " ";
     cout << "\n\n\n";
     return;
 }

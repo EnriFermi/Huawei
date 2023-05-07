@@ -219,7 +219,7 @@ public:
         }
         if (last_p_grup[K] != last_s_grup[K])
         {
-            char *&rules_K = rule_list[K], a, b, **nodes = 0, size = 0;
+            char *&rules_K = rule_list[K], a, b, **nodes = 0;
             bool is_good = true;
             int top_k = top[K], i = 0;
             a = last_p_grup[K];

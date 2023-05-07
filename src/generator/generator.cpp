@@ -225,7 +225,7 @@ public:
                 if (maska[1][j] == 0){
                     new_masi[1][j] = z;
                     if (mch.is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
-                        char del_add; // передается Мише по ссылке
+                        char del_add = 0; // передается Мише по ссылке
                         // вызов Миши
                         std::pair<bool, char**> bruh = ech.is_good_fast(new_masi, j, del_add);
                         if (bruh.first){ // .first
@@ -257,7 +257,7 @@ public:
                 } 
                 new_masi[1][j] = 0;
                 if (mch.is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
-                    char del_add; // передается Мише по ссылке
+                    char del_add = 0; // передается Мише по ссылке
                     // вызов Миши
                     std::pair<bool, char**> bruh = ech.is_good_fast(new_masi, j, del_add);
                     if (bruh.first){ // .first

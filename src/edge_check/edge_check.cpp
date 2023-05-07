@@ -153,11 +153,12 @@ public:
     };
     inline pair<bool, char **> &is_good_fast(char **arr, char K, char &size)
     {
+        size = 0;
         char *last_p_grup = arr[0];
         char *last_s_grup = arr[1];
         if ((last_p_grup[K] != 0) && (last_p_grup[K] == last_s_grup[K]))
         {
-            char *&rules_K = rule_list[K], a, b, **nodes = 0, size = 0;
+            char *&rules_K = rule_list[K], a, b, **nodes = 0;
             bool is_good = true;
             int top_k = top[K], i = 0;
             a = last_p_grup[K];

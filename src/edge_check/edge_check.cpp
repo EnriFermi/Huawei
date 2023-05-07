@@ -206,12 +206,12 @@ public:
                     }
                     char *&nodes_size = nodes[size];
                     nodes_size = (char *)malloc(S_NODE_PARAM * sizeof(char));
-                    nodes_size[0] = rules_KN[(i++) + N];
+                    nodes_size[0] = rules_KN[(i++)];
                     nodes_size[1] = i++ / S_PARAM;
-                    nodes_size[2] = rules_KN[(i++) + N];
-                    for (int p = 0; p < top[K+N]; p++)
-                        cout << int(rules_KN[p]) << " ";
-                    cout << "\n\n";
+                    nodes_size[2] = rules_KN[(i++)];
+                    // for (int p = 0; p < top[K+N]; p++)
+                    //     cout << int(rules_KN[p]) << " ";
+                    // cout << "\n\n";
                     // cout << int(nodes_size[0]) << " " << int(nodes_size[1]) << " " << int(nodes_size[2]) << "\n";
                     size++;
                 }

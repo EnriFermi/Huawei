@@ -207,16 +207,16 @@ public:
             for(char l = 0;  l < st; l++){
                 new_mas[l] = new char [3];
                 std::copy(&in_what_add[l][0], &in_what_add[l][0] + 3, &new_mas[l][0]);
-                delete in_what_add[l];
+                // delete in_what_add[l];
             }
-            delete in_what_add;
+            // delete in_what_add;
         }
 
 
-        for (int i = 0; i < howadd; i++){
-            cout << int(what_add[i][0]) << " " << int(what_add[i][1]) << " " << int(what_add[i][2]) << "\n";
-        }
-        cout <<"\n\n";
+        // for (int i = 0; i < howadd; i++){
+        //     cout << int(what_add[i][0]) << " " << int(what_add[i][1]) << " " << int(what_add[i][2]) << "\n";
+        // }
+        // cout <<"\n\n";
         for(char l = st; l < howadd+st; l++){
             // cout << int(l) << "\n";
             new_mas[l] = new char[3];
@@ -250,10 +250,10 @@ public:
                     char del_add = 0; // передается Мише по ссылке
                     // вызов Миши
                     std::pair<bool, char**> * bruh = ech.is_good_fast(new_masi, j, del_add);
-                    cout <<"\n\n\n" << int(del_add) << "\n";
-                    for (int i = 0; i < del_add; i++){
-                        cout << int(bruh->second[i][0]) << " " << int(bruh->second[i][1]) << " " << int(bruh->second[i][2]) << "\n";
-                    }
+                    // cout <<"\n\n\n" << int(del_add) << "\n";
+                    // for (int i = 0; i < del_add; i++){
+                    //     cout << int(bruh->second[i][0]) << " " << int(bruh->second[i][1]) << " " << int(bruh->second[i][2]) << "\n";
+                    // }
 
                     if (bruh->first){ // .first
                         
@@ -261,8 +261,12 @@ public:
                         if (del_add != 0){
                             char ** new_del_node = attach_mas(num_of_dell, del_add, del_node, bruh->second);
                             megarecur(maska, new_masi, j-1, gnum, super_supchik, new_del_node, num_of_dell + del_add);
-                            for (char i = 0; i < num_of_dell+del_add;i++)
+                            
+                            for (char i = 0; i < num_of_dell+del_add;i++){
+                                // cout << int(new_del_node[i][0]) << " " << int(new_del_node[i][1]) << " " << int(new_del_node[i][2]) << "\n";
                                 delete[] new_del_node[i];
+                            }
+                            // cout << "\n";
                         }
                         else megarecur(maska, new_masi, j-1, gnum, super_supchik, del_node, num_of_dell);
                         if (done_flag) return;

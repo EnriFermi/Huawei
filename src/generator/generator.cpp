@@ -85,8 +85,15 @@ public:
         if (done_flag) return;
         if (used == t){
             // cout << "abobus";
-            cout << int(t) << int(used) << "\n";
             
+            // cout << int(t) << int(used) << "\n";
+            // for (int i = 0; i < k;i++)
+            //     cout << int(masi[0][i]);
+            // cout << "\n";
+            // for (int i = 0; i < k;i++)
+            //     cout << int(masi[1][i]);    
+            // cout <<"\n\n";
+
             char ** num_mas = new char * [2];
             num_mas[0] = new char[k]{0};
             num_mas[1] = new char[k]{0};
@@ -211,10 +218,10 @@ public:
         if (j != -1){
             // если по маске номер пропускается
             if (maska[0][j] == 1) {
-                megarecur(maska, masi, j+1, gnum, super_supchik);
+                megarecur(maska, masi, j-1, gnum, super_supchik);
                 return;
             }
-            
+            // std::cout << int(j);
             //вызов функции megarecur от всех номеров групп
             for (int z = 1; z <= supchik; z++){
                 if (z == supchik) super_supchik++;
@@ -239,12 +246,6 @@ public:
                             if (done_flag) return;
                             
                             if (j + accuracy >= k && num_of_dell == 0){
-                                for (int i = 0; i < k;i++)
-                                     cout << int(maska[0][i]);
-                                 cout << "\n";
-                                for (int i = 0; i < k;i++)
-                                     cout << int(maska[1][i]);    
-                                cout <<"\n\n";
                                 make_max(new_masi, num_of_dell, del_node);
                                 
                             }
@@ -252,7 +253,8 @@ public:
                         }
                         // delete &bruh;
                     }
-                } 
+                }
+                // std::cout << "excuse me bruh"; 
                 new_masi[1][j] = 0;
                 if (mch.is_good(new_masi, j)){// тут вызовы проверки на массу и на ветки
                     char del_add = 0; // передается Мише по ссылке
@@ -282,12 +284,12 @@ public:
                 delete[] new_masi;
             }
         } else {
-            for (int i = 0; i < k;i++)
-                                     cout << int(maska[0][i]);
-                                 cout << "\n";
-                                for (int i = 0; i < k;i++)
-                                     cout << int(maska[1][i]);    
-                                cout <<"\n\n";
+            // for (int i = 0; i < k;i++)
+            //                          cout << int(maska[0][i]);
+            //                      cout << "\n";
+            //                     for (int i = 0; i < k;i++)
+            //                          cout << int(maska[1][i]);    
+            //                     cout <<"\n\n";
             make_max(masi,num_of_dell, del_node);
         }
         
@@ -297,7 +299,8 @@ public:
         
         do{
             t++;
-            cout << int(t) << "\n";
+           
+            // cout << int(t) << "\n";
             char ** masi = new char * [2] ;
             masi[0] = new char[k]{0};
             masi[1] = new char[k]{0};

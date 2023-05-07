@@ -52,7 +52,7 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     unsigned char index_c[N];
     for (int i = 0; i < N; i++)
         index_c[i] = i;
-
+    
     // int n = infos.size();
     // std::cout << infos.end() - infos.begin() << std::endl;
     
@@ -82,7 +82,7 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     for (int i = 0; i < infos.size(); i++){
         weight_c[i] = infos[i].weight;
         summall+=weight_c[i];
-        hassec[i] = infos[i].lvlsCount != 1;
+        hassec[i] = infos[i].secondaryLvl != -1;
     }
     // unsigned int end_time = clock();
     // std::cout << 1000.0 * (end_time - start_time) / CLOCKS_PER_SEC << std::endl;

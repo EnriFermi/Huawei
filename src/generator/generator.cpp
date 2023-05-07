@@ -97,7 +97,7 @@ public:
             char ** num_mas = new char * [2];
             num_mas[0] = new char[k]{0};
             num_mas[1] = new char[k]{0};
-            // this->accuracy = (k/t)+1;
+            // this->accuracy = (k/10)+1;
             accuracy = 0;
             megarecur(masi, num_mas, k-1, k-t, 1);
             if (done_flag) return;

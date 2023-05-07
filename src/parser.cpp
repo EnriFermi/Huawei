@@ -79,21 +79,21 @@ public:
         //                     /*primaryEdges=*/{0, 0, 0, 0, 2}, /*secondaryEdges=*/{0, 1, 0, 0, 0}},
         //          VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/2, /*secondaryLvl=*/0,
         //                     /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{1, 0, 0, 0, 0}},
-        //          VertexInfo{/*weight=*/7, /*lvlsCount=*/2, /*primaryLvl=*/0, /*secondaryLvl=*/2,
+        //          VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/0, /*secondaryLvl=*/2,
         //                     /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{0, 0, 0, 0, 3}},
         //          VertexInfo{/*weight=*/4, /*lvlsCount=*/1, /*primaryLvl=*/1, /*secondaryLvl=*/-1,
         //                     /*primaryEdges=*/{0, 0, 0, 0, 3}, /*secondaryEdges=*/{}},
-        //          VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,
+        //          VertexInfo{/*weight=*/7, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,
         //                     /*primaryEdges=*/{2, 0, 0, 3, 0}, /*secondaryEdges=*/{0, 0, 3, 0, 0}}};
         infos = {VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/0,
                             /*primaryEdges=*/{0, 0, 0, 0, 1}, /*secondaryEdges=*/{0, 1, 0, 0, 0}},
                  VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/2, /*secondaryLvl=*/0,
                             /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{1, 0, 0, 0, 0}},
-                 VertexInfo{/*weight=*/7, /*lvlsCount=*/2, /*primaryLvl=*/0, /*secondaryLvl=*/2,
+                 VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/0, /*secondaryLvl=*/2,
                             /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{0, 0, 0, 0, 1}},
                  VertexInfo{/*weight=*/4, /*lvlsCount=*/1, /*primaryLvl=*/1, /*secondaryLvl=*/-1,
                             /*primaryEdges=*/{0, 0, 0, 0, 1}, /*secondaryEdges=*/{}},
-                 VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,
+                 VertexInfo{/*weight=*/7, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,
                             /*primaryEdges=*/{1, 0, 0, 1, 0}, /*secondaryEdges=*/{0, 0, 1, 0, 0}}};
         do_something(func);
     }

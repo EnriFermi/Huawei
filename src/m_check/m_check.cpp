@@ -88,7 +88,7 @@ public:
         return true;
     }
 
-    bool is_good_fast(char **arr, char K)
+    bool is_good_fast(char **arr, int K)
     {
         char first_p_grup = arr[0][K];
         // if (first_p_grup == 0)

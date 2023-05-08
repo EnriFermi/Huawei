@@ -376,13 +376,14 @@ public:
         return ans;
     }
 
-    generator(char * warr, char nk, char m, short sum, bool *sec_e, m_check &y, edge_check &o): ech(o), mch(y){
+    generator(char * warr, int nk, char m, int sum, bool *sec_e, m_check &y, edge_check &o): ech(o), mch(y){
         // массив весов
         // длина массива весов
         // M
         // Сумма всех весов primary
         // массив существования secondary для primary
-        
+        // if (k == 141) 
+        //     cout << "\n";
         sec_ed = sec_e;
         k = nk;
         W_arr = warr;

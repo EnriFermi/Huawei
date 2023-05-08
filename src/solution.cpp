@@ -103,6 +103,7 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     // Generation
     // TODO change sort output(maybe postprocessing)
     //! generator().generate();
+    cout << N << "\n";
     generator g(weight_c, infos.size(), M, summall,hassec,m_checker,edge_checker);
     g.generate();
     //write answer

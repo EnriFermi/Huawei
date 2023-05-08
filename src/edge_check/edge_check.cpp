@@ -151,7 +151,7 @@ public:
         // }
         // cout << u_mnum << endl;
     };
-    inline pair<bool, char **> * is_good_fast(char **arr, char K,int &size)
+    inline pair<bool, char **> * is_good_fast(char **arr, int K,int &size)
     {
         size = 0;
         char *last_p_grup = arr[0];

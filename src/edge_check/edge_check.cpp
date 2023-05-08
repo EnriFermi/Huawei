@@ -262,14 +262,8 @@ public:
     }
 #define alpha 0.1
 #define sigma 0.25
-#define cb 2
-    inline ~edge_check(){
-        for(int i=0; i<2*N; i++){
-            free(rule_list[i]);
-        }
-        free(top);
-        free(rule_list);
-    };
+#define cb 2.0
+    inline ~edge_check(){};
     inline double count_decision_value(int w_sum,bool is_norm, int u_num, int c_num, double variance)
     {
         double w_chgsum =0 ;

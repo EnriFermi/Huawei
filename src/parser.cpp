@@ -84,6 +84,7 @@ public:
             do_something(Solver);
             infos.clear();
         }
+        //!
         // N = 5, M = 10, L = 3, A = 1;
         // infos = {VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/0,
         //                     /*primaryEdges=*/{0, 0, 0, 0, 2}, /*secondaryEdges=*/{0, 1, 0, 0, 0}},
@@ -105,7 +106,7 @@ public:
         //                     /*primaryEdges=*/{0, 0, 0, 0, 1}, /*secondaryEdges=*/{}},
         //          VertexInfo{/*weight=*/7, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,
         //                     /*primaryEdges=*/{1, 0, 0, 1, 0}, /*secondaryEdges=*/{0, 0, 1, 0, 0}}};
-        // for (int i = 0; i < 50; i++)do_something(func);
-        do_something(func); 
+        // // for (int i = 0; i < 50; i++)do_something(func);
+        // do_something(func); 
     }
 };

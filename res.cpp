@@ -10,14 +10,14 @@
 #include <iomanip>
 using namespace std;
 
-struct VertexInfo {
-    int weight;
-    int lvlsCount;
-    int primaryLvl, secondaryLvl = -1;
-    std::vector<int> primaryEdges, secondaryEdges = {};
-};
+// struct VertexInfo {
+//     int weight;
+//     int lvlsCount;
+//     int primaryLvl, secondaryLvl = -1;
+//     std::vector<int> primaryEdges, secondaryEdges = {};
+// };
 
-bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
+// bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
 
 
 #define S_STEP 8
@@ -40,7 +40,19 @@ class edge_check
 public:
     inline edge_check(int N, int M, int L, const vector<VertexInfo> &std_struct) : N(N), M(M), L(L)
     {
-
+        for (int i = 0; i < N; i++){
+            cout << std_struct[i].weight << " ";
+        }
+        cout << "\n\n\n";
+        for (int i = 0; i < N; i++){
+            cout << std_struct[i].secondaryLvl << " ";
+        }
+        cout << "\n\n\n";
+        for (int i = 0; i < N; i++){
+            for (int j = 0; j < N; j++)
+                cout << std_struct[i].primaryEdges[j] << " ";
+        }
+        cout << "\n\n\n";
         top = (int *)calloc(2 * N, sizeof(int));
         rule_list = (char **)calloc(2 * N, sizeof(char **));
         int i = 0, i_end = std_struct.size();
@@ -154,6 +166,13 @@ public:
                 j++;
             }
             i++;
+        }
+        for (int i = 0; i < 2 * N; i++)
+        {
+            for (int j = 0; j < top[i]; j += S_PARAM)
+            {
+                cout << i << " " << (int)rule_list[i][j] << " " << (int)rule_list[i][j + 2] << " " << (int)rule_list[i][j + 3] << endl;
+            }
         }
     };
     inline pair<bool, char **> * is_good_fast(char **arr, int K,int &size)
@@ -623,7 +642,7 @@ public:
                     
                     new_masi[0][j] = z;
                     new_masi[1][j] = z;
-                        // print_mas(new_masi, 2, k);
+                    print_mas(new_masi, 2, k);
                         // cout << j << "\n";
                     if (mch.is_good_fast(new_masi, j)){// тут вызовы проверки на массу и на ветки
                         int del_add = 0; // передается Мише по ссылке
@@ -669,7 +688,7 @@ public:
                     if (z == supchik) super_supchik = supchik +1;
                     
                     new_masi[0][j] = z;
-                        // print_mas(new_masi, 2, k);
+                        print_mas(new_masi, 2, k);
                         // cout << j << "\n";
                     if (mch.is_good_fast(new_masi, j)){// тут вызовы проверки на массу и на ветки
                         int del_add = 0; // передается Мише по ссылке
@@ -707,7 +726,7 @@ public:
                     }
             } 
             new_masi[0][j] = 0;
-            // print_mas(new_masi, 2, k);
+            print_mas(new_masi, 2, k);
             if (!done_flag)
                 megarecur(new_masi,j-1,gnum, supchik,del_node,num_of_dell);
             delete[] new_masi[0];
@@ -864,7 +883,13 @@ std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo
     //     cout << int(ans[1][j]) << " ";
     // }
         
-    // cout << "\n\n";
+    cout << "\n\n";
+    for (int i = 0; i < infos.size(); i++)
+        cout << int(ans[0][index_c[i]]) << " ";
+    cout << "\n";
+    for (int i = 0; i < infos.size(); i++)
+        cout << int(ans[1][index_c[i]]) << " ";
+    cout << "\n\n";
     int j;
     vector<vector<int>> V(gmax);
     for (int i = 0; i < infos.size(); i++){

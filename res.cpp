@@ -10,14 +10,14 @@
 #include <iomanip>
 using namespace std;
 
-// struct VertexInfo {
-//     int weight;
-//     int lvlsCount;
-//     int primaryLvl, secondaryLvl = -1;
-//     std::vector<int> primaryEdges, secondaryEdges = {};
-// };
+struct VertexInfo {
+    int weight;
+    int lvlsCount;
+    int primaryLvl, secondaryLvl = -1;
+    std::vector<int> primaryEdges, secondaryEdges = {};
+};
 
-// bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
+bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
 
 
 #define S_STEP 8
@@ -790,6 +790,7 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
         quicksort(vec, pi + 1, high, arr);
     }
 }
+
 std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo> infos)
 {
     // Preprocessing
@@ -797,8 +798,11 @@ std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo
 
     char weight_c[N];
     unsigned char index_c[N];
-    for (int i = 0; i < N; i++)
+    
+    for (int i = 0; i < N; i++){
         index_c[i] = i;
+    }
+        
     
     // сортировка вставками быстрее до 16
     if (N < 16)
@@ -823,12 +827,14 @@ std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo
         quicksort(infos, 0, N - 1, index_c);
     short summall = 0;
     bool hassec[infos.size()];
+    unsigned char index_cr[N];
     for (int i = 0; i < infos.size(); i++){
         weight_c[i] = infos[i].weight;
         summall+=weight_c[i];
         hassec[i] = infos[i].secondaryLvl != -1;
+        index_cr[index_c[i]] = i;
     }
-
+    
     // Checkers initialising
     m_check m_checker(N, M, L, infos, index_c, weight_c);
     edge_check edge_checker(N, M, L, infos);
@@ -845,22 +851,31 @@ std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo
     char ** ans = g.get_ans();
     int gmax = 0;
     for (int i = 0; i < infos.size(); i++){
-        gmax = (gmax < ans[0][i])?ans[0][i]:gmax; 
+        gmax = (gmax < ans[0][i])?ans[0][i]:gmax;
     }
 
-    for (int i = 0; i < infos.size(); i++)
-        cout << int(ans[0][index_c[i]]) << " ";
-    cout << "\n";
-    for (int i = 0; i < infos.size(); i++)
-        cout << int(ans[1][index_c[i]]) << " ";
-    cout << "\n\n";
+    // for (int i = 0; i < infos.size(); i++){
+    //     int j = find_i(index_c, i);
+    //     cout << int(ans[0][j]) << " ";
+    // }
+    // cout << "\n";
+    // for (int i = 0; i < infos.size(); i++){
+    //     int j = find_i(index_c, i);
+    //     cout << int(ans[1][j]) << " ";
+    // }
+        
+    // cout << "\n\n";
+    int j;
     vector<vector<int>> V(gmax);
     for (int i = 0; i < infos.size(); i++){
-        if (ans[0][index_c[i]] != 0){
-            V[(int)(ans[0][index_c[i]])-1].push_back(index_c[i]);
+        j = index_cr[i];
+
+        if (ans[0][j] != 0){
+            
+            V[(int)(ans[0][j])-1].push_back(j);
         }
-        if (ans[1][index_c[i]] != 0){
-            V[(int)(ans[1][index_c[i]])-1].push_back(index_c[i]); //!Not ok
+        if (ans[1][j] != 0){
+            V[(int)(ans[1][j])-1].push_back(j); //!Not ok
         } 
     }
     return V;

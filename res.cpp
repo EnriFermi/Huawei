@@ -170,6 +170,7 @@ public:
             while (is_good && i < top_k) // For primary keys
             {
                 // if (rules_K[i++] != -1)
+                i++;
                 if (1)
                 {
                     i++;
@@ -205,6 +206,7 @@ public:
             {
 
                 // if (rules_KN[i++] != -1)
+                i++;
                 if (1)
                 {
                     i++;
@@ -246,6 +248,7 @@ public:
             while (is_good && i < top_k) // For primary keys
             {
                 // if (rules_K[i++] != -1)
+                i++;
                 if (1)
                 {
                     i++;

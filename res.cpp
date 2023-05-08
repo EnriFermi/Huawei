@@ -847,7 +847,8 @@ std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo
     for (int i = 0; i < infos.size(); i++){
         gmax = (gmax < ans[0][i])?ans[0][i]:gmax; 
     }
-
+    cout << " ";
+    
     for (int i = 0; i < infos.size(); i++)
         cout << int(ans[0][index_c[i]]) << " ";
     cout << "\n";

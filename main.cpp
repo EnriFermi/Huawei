@@ -52,7 +52,7 @@ bool Delete(int lvl, int v, int u) {
 
 
 int main() {
-  cout << 212 << endl;
+  // cout << 212 << endl;
   parser::parse("open.txt", *Solver);
   // N = 5, M = 10, L = 3;
   // infos = {VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/0,

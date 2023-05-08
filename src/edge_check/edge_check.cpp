@@ -151,7 +151,7 @@ public:
         // }
         // cout << u_mnum << endl;
     };
-    inline pair<bool, char **> * is_good_fast(char **arr, char K, char &size)
+    inline pair<bool, char **> * is_good_fast(char **arr, char K,int &size)
     {
         size = 0;
         char *last_p_grup = arr[0];
@@ -217,9 +217,9 @@ public:
                 }
             }
             if (is_good){
-                for (int i = 0; i < size; i++){
-                        cout << int(nodes[i][0]) << " " << int(nodes[i][1]) << " " << int(nodes[i][2]) << "\n";
-                }
+                // for (int i = 0; i < size; i++){
+                //         cout << int(nodes[i][0]) << " " << int(nodes[i][1]) << " " << int(nodes[i][2]) << "\n";
+                // }
                 return new pair<bool, char **>(true, nodes);
             }
             else

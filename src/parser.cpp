@@ -44,47 +44,57 @@ struct parser
 public:
     static void parse(char *filename, /*vector<vector<int>>*/void (*func)(int, int, int, vector<VertexInfo>))
     {
-        // ifstream in_file;
-        // int x;
-        // in_file.open("open.txt");
-        // in_file >> A;
-        // for (int i = 0; i < A; i++)
-        // {
-        //     in_file >> N >> M >> L;
-        //     for (int j = 0; j < M; j++)
-        //     {
-        //         VertexInfo vertex;
-        //         in_file >> vertex.weight >> vertex.lvlsCount >> vertex.primaryLvl;
-        //         if (vertex.lvlsCount > 1)
-        //             in_file >> vertex.secondaryLvl;
-        //         for (int k = 0; k < N; k++)
-        //         {
+        ifstream in_file;
+        int x;
+        in_file.open("open.txt");
+        in_file >> A;
+        for (int i = 0; i < A; i++)
+        {
+            in_file >> N >> M >> L;
+            // cout << N << M << L << "\n";
+            for (int j = 0; j < N; j++)
+            {
+                VertexInfo vertex;
+                in_file >> vertex.weight >> vertex.lvlsCount >> vertex.primaryLvl;
+                // cout << vertex.weight << vertex.lvlsCount << vertex.primaryLvl << "\n";
+                if (vertex.lvlsCount > 1)
+                    in_file >> vertex.secondaryLvl;
+                for (int k = 0; k < N; k++)
+                {
 
-        //             in_file >> x;
-        //             vertex.primaryEdges.push_back(x);
-        //         }
-        //         if (vertex.lvlsCount > 1)
-        //             for (int k = 0; k < N; k++)
-        //             {
-        //                 in_file >> x;
-        //                 vertex.secondaryEdges.push_back(x);
-        //             }
-        //         infos.push_back(vertex);
-        //     }
-        //     do_something(infos, Solver);
-        //     infos.clear();
-        // }
-        N = 5, M = 10, L = 3, A = 1;
-        infos = {VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/0,
-                            /*primaryEdges=*/{0, 0, 0, 0, 2}, /*secondaryEdges=*/{0, 1, 0, 0, 0}},
-                 VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/2, /*secondaryLvl=*/0,
-                            /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{1, 0, 0, 0, 0}},
-                 VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/0, /*secondaryLvl=*/2,
-                            /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{0, 0, 0, 0, 3}},
-                 VertexInfo{/*weight=*/4, /*lvlsCount=*/1, /*primaryLvl=*/1, /*secondaryLvl=*/-1,
-                            /*primaryEdges=*/{0, 0, 0, 0, 3}, /*secondaryEdges=*/{}},
-                 VertexInfo{/*weight=*/7, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,
-                            /*primaryEdges=*/{2, 0, 0, 3, 0}, /*secondaryEdges=*/{0, 0, 3, 0, 0}}};
+                    in_file >> x;
+                    vertex.primaryEdges.push_back(x);
+                }
+                if (vertex.lvlsCount > 1)
+                    for (int k = 0; k < N; k++)
+                    {
+                        in_file >> x;
+                        vertex.secondaryEdges.push_back(x);
+                    }
+                infos.push_back(vertex);
+                // cout << infos[0].primaryEdges.size() << "\n";
+            }
+            // for (int i = 0; i < infos.size(); i++)
+            //     {
+            //         for (int j = 0; j < N; j++){
+            //             cout << int(infos[i].secondaryEdges[j]) << "\n";
+            //         }
+            //         cout << "\n";
+            //     }
+            do_something(Solver);
+            infos.clear();
+        }
+        // N = 5, M = 10, L = 3, A = 1;
+        // infos = {VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/0,
+        //                     /*primaryEdges=*/{0, 0, 0, 0, 2}, /*secondaryEdges=*/{0, 1, 0, 0, 0}},
+        //          VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/2, /*secondaryLvl=*/0,
+        //                     /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{1, 0, 0, 0, 0}},
+        //          VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/0, /*secondaryLvl=*/2,
+        //                     /*primaryEdges=*/{0, 0, 0, 0, 0}, /*secondaryEdges=*/{0, 0, 0, 0, 3}},
+        //          VertexInfo{/*weight=*/4, /*lvlsCount=*/1, /*primaryLvl=*/1, /*secondaryLvl=*/-1,
+        //                     /*primaryEdges=*/{0, 0, 0, 0, 3}, /*secondaryEdges=*/{}},
+        //          VertexInfo{/*weight=*/7, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/2,
+        //                     /*primaryEdges=*/{2, 0, 0, 3, 0}, /*secondaryEdges=*/{0, 0, 3, 0, 0}}};
         // infos = {VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/0,
         //                     /*primaryEdges=*/{0, 0, 0, 0, 1}, /*secondaryEdges=*/{0, 1, 0, 0, 0}},
         //          VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/2, /*secondaryLvl=*/0,

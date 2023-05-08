@@ -96,6 +96,10 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     m_check m_checker(N, M, L, infos, index_c, weight_c);
     edge_check edge_checker(N, M, L, infos);
 
+    // ускорение ввода, вывода
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
     // Generation
     // TODO change sort output(maybe postprocessing)
     //! generator().generate();
@@ -103,16 +107,34 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     g.generate();
     //write answer
     char ** ans = g.get_ans();
-    for (int i = 0; i < infos.size(); i++){
-        cout << hassec[i];
-    }
-    cout << "\n";
+    // for (int i = 0; i < infos.size(); i++){
+    //     cout << hassec[i];
+    // }
+    // cout << "\n";
+
+    // for (int i = 0; i < infos.size(); i++)
+    //     cout << int(ans[0][i]) << " ";
+    // cout << "\n";
+    // for (int i = 0; i < infos.size(); i++)
+    //     cout << int(ans[1][i]) << " ";
+    // cout << "\n\n";
+    
     for (int i = 0; i < infos.size(); i++)
         cout << int(ans[0][index_c[i]]) << " ";
     cout << "\n";
     for (int i = 0; i < infos.size(); i++)
         cout << int(ans[1][index_c[i]]) << " ";
-    cout << "\n\n\n";
+    cout << "\n\n";
+
+    // char gmax = 0;
+    // for (int i = 0; i < infos.size(); i++)
+    //     gmax = (gmax < ans[0][i])?ans[0][i]:gmax; 
+    // vector<vector<int>> V;
+    // V.resize(gmax);
+    // for (int i = 0; i < infos.size(); i++){
+    //     V[ans[0][index_c[i]]-1].push_back(index_c[i]);
+    //     if (ans[1][index_c[i]-1] != 0) V[ans[0][index_c[i]]-1].push_back(index_c[i]);
+    // }
     return;
 }
 // int main()

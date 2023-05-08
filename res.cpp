@@ -10,14 +10,14 @@
 #include <iomanip>
 using namespace std;
 
-struct VertexInfo {
-    int weight;
-    int lvlsCount;
-    int primaryLvl, secondaryLvl = -1;
-    std::vector<int> primaryEdges, secondaryEdges = {};
-};
+// struct VertexInfo {
+//     int weight;
+//     int lvlsCount;
+//     int primaryLvl, secondaryLvl = -1;
+//     std::vector<int> primaryEdges, secondaryEdges = {};
+// };
 
-bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
+// bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
 
 
 #define S_STEP 8
@@ -169,7 +169,8 @@ public:
             a = last_p_grup[K];
             while (is_good && i < top_k) // For primary keys
             {
-                if (rules_K[i++] != -1)
+                // if (rules_K[i++] != -1)
+                if (1)
                 {
                     i++;
                     b = arr[rules_K[i++]][rules_K[i++]];
@@ -203,7 +204,8 @@ public:
             while (is_good && i < top_k) // For secondray keys
             {
 
-                if (rules_KN[i++] != -1)
+                // if (rules_KN[i++] != -1)
+                if (1)
                 {
                     i++;
                     b = arr[rules_KN[i++]][rules_KN[i++]];
@@ -243,7 +245,8 @@ public:
             a = last_p_grup[K];
             while (is_good && i < top_k) // For primary keys
             {
-                if (rules_K[i++] != -1)
+                // if (rules_K[i++] != -1)
+                if (1)
                 {
                     i++;
                     b = arr[rules_K[i++]][rules_K[i++]];
@@ -442,7 +445,7 @@ public:
 
 
 #define zv 0.5
-#define ndc 5
+#define ndc 0
 #define concha 1.5
 // константа задающее возможность принебречь точностью на
 
@@ -624,7 +627,7 @@ public:
                         // вызов Миши 
                         std::pair<bool, char**> * bruh = ech.is_good_fast(new_masi, j, del_add);
 
-                        if (bruh->first && (del_add+num_of_dell < ndc)){ // .first
+                        if (bruh->first && (del_add+num_of_dell <= ndc)){ // .first
                         
                         //вызов функции склейки для del_node
                         
@@ -670,7 +673,7 @@ public:
                         // вызов Миши 
                         std::pair<bool, char**> * bruh = ech.is_good_fast(new_masi, j, del_add);
 
-                        if (bruh->first && (del_add+num_of_dell < ndc)){ // .first
+                        if (bruh->first && (del_add+num_of_dell <= ndc)){ // .first
                         
                         //вызов функции склейки для del_node
                         
@@ -841,14 +844,22 @@ std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo
     for (int i = 0; i < infos.size(); i++){
         gmax = (gmax < ans[0][i])?ans[0][i]:gmax; 
     }
-    vector<vector<int>> V(gmax+1);
+
+    for (int i = 0; i < infos.size(); i++)
+        cout << int(ans[0][index_c[i]]) << " ";
+    cout << "\n";
+    for (int i = 0; i < infos.size(); i++)
+        cout << int(ans[1][index_c[i]]) << " ";
+    cout << "\n\n";
+    vector<vector<int>> V(gmax);
     for (int i = 0; i < infos.size(); i++){
-        if (ans[0][index_c[i]-1] != 0){
-            V[(int)(ans[0][index_c[i]-1])].push_back(index_c[i]);
+        if (ans[0][index_c[i]] != 0){
+            V[(int)(ans[0][index_c[i]])-1].push_back(index_c[i]);
         }
-        if (ans[1][index_c[i]-1] != 0){
-            V[(int)(ans[1][index_c[i]-1])].push_back(index_c[i]); //!Not ok
+        if (ans[1][index_c[i]] != 0){
+            V[(int)(ans[1][index_c[i]])-1].push_back(index_c[i]); //!Not ok
         } 
-    }return V;
+    }
+    return V;
 
 }

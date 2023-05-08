@@ -184,8 +184,14 @@ public:
                     size++;
                 }
             }
-            if (!is_good)
+            if (!is_good){
+                for(int o=0; o<size; o++){
+                    free(nodes[o]);
+                }
+                free(nodes);
+                size = 0;
                 return new pair<bool, char **>(false, 0);
+            }
             top_k = top[K + N], i = 0;
             a = last_s_grup[K];
             char *&rules_KN = rule_list[K + N];
@@ -222,8 +228,14 @@ public:
                 // }
                 return new pair<bool, char **>(true, nodes);
             }
-            else
+            else{
+                for(int o=0; o<size; o++){
+                    free(nodes[o]);
+                }
+                free(nodes);
+                size = 0;
                 return new pair<bool, char **>(false, 0);
+            }
         }
         if (last_p_grup[K] != last_s_grup[K])
         {
@@ -253,17 +265,31 @@ public:
                     size++;
                 }
             }
-            if (is_good)
+            if (is_good){
                 return new pair<bool, char **>(true, nodes);
-            else
+            }
+            else{
+                for(int o=0; o<size; o++){
+                    free(nodes[o]);
+                }
+                free(nodes);
+                size = 0;
                 return new pair<bool, char **>(false, 0);
+            }
+                
         }
         return new pair<bool, char **>(true, 0);
     }
 #define alpha 0.1
 #define sigma 0.25
 #define cb 2.0
-    inline ~edge_check(){};
+    inline ~edge_check(){
+        for(int o=0; o<2*N; o++){
+            free(rule_list[o]);
+        }
+        free(rule_list);
+        free(top);
+    };
     inline double count_decision_value(int w_sum,bool is_norm, int u_num, int c_num, double variance)
     {
         double w_chgsum =0 ;

@@ -44,16 +44,18 @@ bool Delete(int lvl, int v, int u) {
   return edge % 2 == 0;
 }
 //Подключаем все файлы
-#include "src/edge_check/edge_check.cpp"
-#include "src/m_check/m_check.cpp"
-#include "src/generator/generator.cpp"
-#include "src/solution.cpp"
+// #include "src/edge_check/edge_check.cpp"
+// #include "src/m_check/m_check.cpp"
+// #include "src/generator/generator.cpp"
+// #include "src/solution.cpp"
+#include "res.cpp"
 #include "src/parser.cpp"
 
 
 int main() {
   // cout << 212 << endl;
   parser::parse("open.txt", *Solver);
+  cout << timer << endl;
   // N = 5, M = 10, L = 3;
   // infos = {VertexInfo{/*weight=*/4, /*lvlsCount=*/2, /*primaryLvl=*/1, /*secondaryLvl=*/0,
   //                  /*primaryEdges=*/{0, 0, 0, 0, 2}, /*secondaryEdges=*/{0, 1, 0, 0, 0}},

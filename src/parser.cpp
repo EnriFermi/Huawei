@@ -2,10 +2,10 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-
+long double timer = 0;
 struct parser
 {
-    static void do_something(/*vector<vector<int>>*/void (*func)(int, int, int, vector<VertexInfo>))
+    static void do_something(vector<vector<int>> (*func)(int, int, int, vector<VertexInfo>))
     {
         vector<VertexInfo> convertedInfos = infos;
         for (int v = 0; v < N; ++v)
@@ -21,33 +21,36 @@ struct parser
                     e = -1;
             }
         }
-        /*vector<vector<int>> result = */func(N, M, L, convertedInfos);
+        unsigned int start_time = clock();
+        vector<vector<int>> result = func(N, M, L, convertedInfos);
+        unsigned int end_time = clock();
+        timer+=1000.0 * (end_time - start_time)/CLOCKS_PER_SEC;
 
-        // cout << result.size() << endl;
-        // for (auto group : result)
-        // {
-        //     sort(group.begin(), group.end());
-        //     cout << group.size() << " ";
-        //     for (size_t i = 0; i < group.size(); ++i)
-        //     {
-        //         cout << group[i];
-        //         if (i + 1 != group.size())
-        //         {
-        //             cout << " ";
-        //         }
-        //     }
-        //     cout << endl;
-        // }
-        // cout << p << endl;
+        cout << result.size() << endl;
+        for (auto group : result)
+        {
+            sort(group.begin(), group.end());
+            cout << group.size() << " ";
+            for (size_t i = 0; i < group.size(); ++i)
+            {
+                cout << group[i];
+                if (i + 1 != group.size())
+                {
+                    cout << " ";
+                }
+            }
+            cout << endl;
+        }
     }
 
 public:
-    static void parse(char *filename, /*vector<vector<int>>*/void (*func)(int, int, int, vector<VertexInfo>))
+    static void parse(char *filename, vector<vector<int>>(*func)(int, int, int, vector<VertexInfo>))
     {
         ifstream in_file;
         int x;
         in_file.open("open.txt");
         in_file >> A;
+        A = 1;
         for (int i = 0; i < A; i++)
         {
             in_file >> N >> M >> L;

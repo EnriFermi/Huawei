@@ -296,6 +296,10 @@ public:
                             }
                         
                         }
+                        for(int o=0; o<del_add; o++){
+                            free(bruh->second[o]);
+                        }
+                        free(bruh->second);
                         delete bruh;
                     }
                 } 
@@ -342,6 +346,10 @@ public:
                             }
                         
                         }
+                        for(int o=0; o<del_add; o++){
+                            free(bruh->second[o]);
+                        }
+                        free(bruh->second);
                         delete bruh;
                     }
             } 
@@ -361,7 +369,6 @@ public:
     void generate(){
         // for (int i = 0; i < k; i++)
         //     cout << sec_ed[i];
-        cout << "\n";
             char ** num_mas = new char * [2];
             num_mas[0] = new char[k];
             num_mas[1] = new char[k];

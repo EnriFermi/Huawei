@@ -103,7 +103,6 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     // Generation
     // TODO change sort output(maybe postprocessing)
     //! generator().generate();
-    cout << N << "\n";
     generator g(weight_c, infos.size(), M, summall,hassec,m_checker,edge_checker);
     g.generate();
     //write answer
@@ -120,12 +119,12 @@ void quicksort(std::vector<VertexInfo> &vec, int low, int high, unsigned char *a
     //     cout << int(ans[1][i]) << " ";
     // cout << "\n\n";
     
-    for (int i = 0; i < infos.size(); i++)
-        cout << int(ans[0][index_c[i]]) << " ";
-    cout << "\n";
-    for (int i = 0; i < infos.size(); i++)
-        cout << int(ans[1][index_c[i]]) << " ";
-    cout << "\n\n";
+    // for (int i = 0; i < infos.size(); i++)
+    //     cout << int(ans[0][index_c[i]]) << " ";
+    // cout << "\n";
+    // for (int i = 0; i < infos.size(); i++)
+    //     cout << int(ans[1][index_c[i]]) << " ";
+    // cout << "\n\n";
 
     // char gmax = 0;
     // for (int i = 0; i < infos.size(); i++)

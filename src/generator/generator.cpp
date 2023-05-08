@@ -341,12 +341,14 @@ public:
     void generate(){
         t = 1;
         best_t = k;
-        
-        cout << int(t) << "\n";
-        char * masi = new char [k] ;
-        for (int i = 0; i < k; i++)
-            masi[i] = 0;
-        maska_requr_prime(k-1, 0, masi);
+        for (int i = 1; i < 4; i++ ){
+            t = i;
+            cout << int(t) << "\n";
+            char * masi = new char [k] ;
+            for (int i = 0; i < k; i++)
+                masi[i] = 0;
+            maska_requr_prime(k-1, 0, masi);
+        }
        t = best_t;
        cout << int(t) << "\n";
        masi = new char [k] ;

@@ -50,7 +50,6 @@ public:
         int x;
         in_file.open("open.txt");
         in_file >> A;
-        A = 1;
         for (int i = 0; i < A; i++)
         {
             in_file >> N >> M >> L;

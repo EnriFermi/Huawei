@@ -10,14 +10,14 @@
 #include <iomanip>
 using namespace std;
 
-// struct VertexInfo {
-//     int weight;
-//     int lvlsCount;
-//     int primaryLvl, secondaryLvl = -1;
-//     std::vector<int> primaryEdges, secondaryEdges = {};
-// };
+struct VertexInfo {
+    int weight;
+    int lvlsCount;
+    int primaryLvl, secondaryLvl = -1;
+    std::vector<int> primaryEdges, secondaryEdges = {};
+};
 
-// bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
+bool Delete(int/* lvl*/, int/* v*/, int/* u*/);
 
 
 #define S_STEP 8
@@ -837,14 +837,18 @@ std::vector<std::vector<int>> Solver(int N, int M, int L, std::vector<VertexInfo
     generator g(weight_c, infos.size(), M, summall,hassec,m_checker,edge_checker);
     g.generate();
     char ** ans = g.get_ans();
-    char gmax = 0;
-    for (int i = 0; i < infos.size(); i++)
-        gmax = (gmax < ans[0][i])?ans[0][i]:gmax; 
-    vector<vector<int>> V(gmax);
-    
+    int gmax = 0;
     for (int i = 0; i < infos.size(); i++){
-        V[ans[0][index_c[i]]-1].push_back(index_c[i]);
-        if (ans[1][index_c[i]-1] != 0) V[ans[0][index_c[i]]-1].push_back(index_c[i]);
-    return V;
-}
+        gmax = (gmax < ans[0][i])?ans[0][i]:gmax; 
+    }
+    vector<vector<int>> V(gmax+1);
+    for (int i = 0; i < infos.size(); i++){
+        if (ans[0][index_c[i]-1] != 0){
+            V[(int)(ans[0][index_c[i]-1])].push_back(index_c[i]);
+        }
+        if (ans[1][index_c[i]-1] != 0){
+            V[(int)(ans[1][index_c[i]-1])].push_back(index_c[i]); //!Not ok
+        } 
+    }return V;
+
 }

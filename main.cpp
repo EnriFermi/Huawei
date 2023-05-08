@@ -53,7 +53,6 @@ bool Delete(int lvl, int v, int u) {
 
 
 int main() {
-  // cout << 212 << endl;
   parser::parse("open.txt", *Solver);
   cout << timer << endl;
   // N = 5, M = 10, L = 3;

@@ -262,9 +262,11 @@ public:
     }
 #define alpha 0.1
 #define sigma 0.25
+#define c 2.0
     inline ~edge_check(){};
-    inline double count_decision_value(int w_sum, int w_chgsum, int u_num, int c_num, double variance)
+    inline double count_decision_value(int w_sum, int u_num, int c_num, double variance)
     {
+        double w_chgsum = w_sum - c*((double)w_sum)/N;
         double lambda;
         if (!u_mnum && u_num)
             lambda = 1;

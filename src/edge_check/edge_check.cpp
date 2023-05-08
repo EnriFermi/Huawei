@@ -262,15 +262,21 @@ public:
     }
 #define alpha 0.1
 #define sigma 0.25
-#define c 2.0
-    inline ~edge_check(){};
+#define cb 2
+    inline ~edge_check(){
+        for(int i=0; i<2*N; i++){
+            free(rule_list[i]);
+        }
+        free(top);
+        free(rule_list);
+    };
     inline double count_decision_value(int w_sum,bool is_norm, int u_num, int c_num, double variance)
     {
         double w_chgsum =0 ;
         if(is_norm)
-            w_chgsum = w_sum - c*((double)w_sum)/N;
+            w_chgsum = w_sum - cb*((double)w_sum)/N;
         else
-            w_sum = w_sum - c*((double)w_sum)/N;
+            w_sum = w_sum - cb*((double)w_sum)/N;
         double lambda;
         if (!u_mnum && u_num)
             lambda = 1;
